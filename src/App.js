@@ -1,15 +1,14 @@
 //import logo from './logo.svg';
-import "./App.css";
-import LoginSignup from "./components/LoginSignup/LoginSignup";
-import Home from "./components/Home";
-import About from "./components/About";
+import LoginSignup from "./pages/LoginSignup";
+import Home from "./pages/Home";
+import About from "./pages/About";
 import Work from "./components/Work";
 import Testimonial from "./components/Testimonial";
-import Contact from "./components/Contact";
+import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import ResetPassword from "./components/LoginSignup/ResetPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const navigate = useNavigate();
@@ -17,26 +16,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Home />
-              <About />
-              <Work />
-              <Testimonial />
-              <Contact />
-              <button
-                className="secondary-button"
-                onClick={() => navigate("/auth")}
-              >
-                Get Started
-              </button>
-              <Footer />
-            </>
-          }
-        />
-        <Route path="/auth" element={<LoginSignup />} />
+        <Route path="/" element={<Home />}/>
+        <Route path="/login" element={<LoginSignup />} />
         <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </div>

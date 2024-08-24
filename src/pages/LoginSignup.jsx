@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, Typography, Box, Container } from '@mui/material';
-import './LoginSignup.css';
 
 const LoginSignup = () => {
   const [action, setAction] = useState("Login");
