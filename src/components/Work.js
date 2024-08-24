@@ -7,17 +7,17 @@ const Work = () => {
   const workInfoData = [
     {
       //image: a,
-      title: "test",
+      title: "test 1",
       text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et sagittis duis elementum interdum facilisi bibendum.",
     },
     {
       //image: b,
-      title: "test",
+      title: "test 2",
       text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et ",
     },
     {
       //image:c,
-      title: "test",
+      title: "test 3",
       text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
     },
   ];

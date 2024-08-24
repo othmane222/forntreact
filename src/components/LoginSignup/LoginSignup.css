@@ -1,93 +1,139 @@
-.container{
+.container {
     display: flex;
     flex-direction: column;
     margin: auto;
-    margin-top: 200px;
-    width: 600px;
-    background:#fff;
-    padding-bottom: 30px;
-    }
-
-    .header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 9px;
-        width: 100%;
-        margin-top: 30px;
-        }
-
-        .text{
-            color: #2DD4BF;
-            font-size: 48px;
-            font-weight: 700;
-            }
-            .underline{
-            width: 61px;
-            height: 6px;
-            background: #2DD4BF;
-            border-radius: 9px;
-            }
-
-            .inputs{
-                margin-top: 55px;
-                display: flex;
-                flex-direction: column;
-                gap: 25px;
-                }
-                .input{
-                display: flex;
-                align-items: center;
-                margin: auto;
-                width: 480px;
-                height: 80px;
-                background: #eaeaea;
-                border-radius: 6px;
-                }
-
-                .input img{
-margin: 0px 30px;
-}
-.input input{
-height: 50px;
-width: 400px;
-background: transparent;
-border: none;
-outline: none;
-color: #797979;
-font-size: 19px;
+    margin-top: 150px;
+    width: 90%;
+    max-width: 600px;
+    background: #fff;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.forgot-password{
-    padding-left: 62px;
-    margin-top: 27px;
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.text {
+    color: #2DD4BF;
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.underline {
+    width: 50px;
+    height: 5px;
+    background: #2DD4BF;
+    border-radius: 9px;
+}
+
+.inputs {
+    margin-top: 45px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    background: #f5f5f5;
+    border-radius: 6px;
+    padding: 0 20px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.input img {
+    margin-right: 15px;
+}
+
+.input input {
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
     color: #797979;
-    font-size: 18px;
-    }
-    .forgot-password span{
+    font-size: 16px;
+}
+
+.forgot-password {
+    text-align: left;
+    color: #797979;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+.forgot-password-link {
     color: #4c00b4;
     cursor: pointer;
+}
+
+.submit-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 40px auto 0;
+    width: 100%;
+}
+
+.submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    color: #fff;
+    background: #2DD4BF;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.submit:hover {
+    background: #24bda9;
+}
+
+.gray {
+    background: #acabab;
+    color: #ffffff;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin-top: 100px;
+        padding: 20px 15px;
     }
 
-   .submit-container{
-        display: flex;
-        gap: 30px;
-        margin: 60px auto;
-        }
-        .submit{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 220px;
-        height: 59px;
-        color: #fff;
-        background: #2DD4BF;
-        border-radius: 50px;
-        font-size: 19px;
-        font-weight: 700;
-        cursor: pointer;}
+    .text {
+        font-size: 28px;
+    }
 
-        .gray{
-            background: #acabab;
-            color:#ffffff;
-        }
+    .inputs {
+        margin-top: 30px;
+    }
+
+    .input {
+        height: 50px;
+    }
+
+    .input input {
+        font-size: 14px;
+    }
+
+    .submit {
+        height: 45px;
+        font-size: 16px;
+    }
+}
