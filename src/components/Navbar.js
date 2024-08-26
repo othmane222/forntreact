@@ -1,10 +1,8 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
-/*import Logo from "../components/Assets/Logo.svg";*/
+import React,{useState} from 'react';
 import { BsCart2 } from "react-icons/bs";
 import { HiOutlineBars3 } from "react-icons/hi2";
-import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
+import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
@@ -18,44 +16,32 @@ import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import SearchBar from "./SearchBar/SearchBar";
 
-const Navbar = () => {
+const Navbar = ({ toggleCartComponent }) => {
   const [openMenu, setOpenMenu] = useState(false);
+
   const menuOptions = [
-    {
-      text: "Home",
-      icon: <HomeIcon />,
-    },
-    {
-      text: "About",
-      icon: <InfoIcon />,
-    },
-    {
-      text: "Testimonials",
-      icon: <CommentRoundedIcon />,
-    },
-    {
-      text: "Contact",
-      icon: <PhoneRoundedIcon />,
-    },
-    {
-      text: "Cart",
-      icon: <ShoppingCartRoundedIcon />,
-    },
+    { text: "Home", icon: <HomeIcon /> },
+    { text: "About", icon: <InfoIcon /> },
+    { text: "Testimonials", icon: <CommentRoundedIcon /> },
+    { text: "Contact", icon: <PhoneRoundedIcon /> },
+    { text: "Cart", icon: <ShoppingCartRoundedIcon /> },
   ];
+
   return (
     <nav>
-      <div className="nav-logo-container"> <a href="">&&Logo&&</a>
-        <img  alt="" />
+      <div className="nav-logo-container">
+        <a href="#">&&Logo&&</a>
+        <img alt="" />
       </div>
-      <SearchBar/>
+      <SearchBar />
       <div className="navbar-links-container">
-        <a href="">Home</a>
-        <a href="">About</a>
-        <a href="">Testimonials</a>
-        <a href="">Contact</a>
-        <a href="">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Testimonials</a>
+        <a href="#">Contact</a>
+        <button onClick={toggleCartComponent}> {/* Trigger toggleCartComponent on click */}
           <BsCart2 className="navbar-cart-icon" />
-        </a>
+        </button>
         <button className="primary-button">Bookings Now</button>
       </div>
       <div className="navbar-menu-container">
