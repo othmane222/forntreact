@@ -8,7 +8,7 @@ const Navbar = () => {
   }
 
   return (
-      <header >
+      <header  className={"bg-secondary-dark text-white"}>
         <div className={"container max-w-screen-xl px-4 md:px-6 mx-auto flex justify-between py-4"}>
         <div className="flex items-center gap-x-10 z-20">
           <div id="logo" className={""}>
@@ -49,8 +49,8 @@ const Navbar = () => {
         </div>
         </div>
         <div className={`${isOpen ? "block" : "hidden"}`}>
-          <div className="flex flex-col justify-start  items-start h-full">
-            <div className="flex flex-col items-center gap-8">
+          <div className="flex flex-col justify-start  items-start h-full z-10 bg-primary-100">
+            <div className="flex flex-col items-center gap-8 ml-4 py-4">
               <a className="font-base font-semibold sm:text-base text-theme-neutral-200 hover:text-fuchsia-500 transition-all" href="https://www.ycombinator.com/launches/Gh3-codecrafters-advanced-code-challenges-for-senior-engineers">About</a>
               <a className="font-base font-semibold sm:text-base text-theme-neutral-200 hover:text-fuchsia-500 transition-all" href="/perks">Perks</a>
               <a className="font-base font-semibold sm:text-base text-theme-neutral-200 hover:text-fuchsia-500 transition-all" href="/pricing">Pricing</a>

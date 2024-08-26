@@ -2,3 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+
+    .gradient_canvas {
+        @apply background: linear-gradient(90deg, #FFC107 0%, #FF9800 100%);
+        @apply height: 100vh;
+        @apply display: flex;
+        @apply justify-content: center;
+        @apply align-items: center;
+    }
+}
