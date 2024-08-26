@@ -10,7 +10,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import Cart from './components/Cart/Cart';
-import Categories from './components/Categories';
+import Categories from './components/Categories/Categories';
 
 function App() {
   const [isCartVisible, setIsCartVisible] = useState(false);
