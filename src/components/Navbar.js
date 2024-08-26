@@ -8,7 +8,7 @@ const Navbar = () => {
   }
 
   return (
-      <header  className={"bg-secondary-dark text-white"}>
+      <header  className={"bg-forth-start text-white"}>
         <div className={"container max-w-screen-xl px-4 md:px-6 mx-auto flex justify-between py-4"}>
         <div className="flex items-center gap-x-10 z-20">
           <div id="logo" className={""}>
