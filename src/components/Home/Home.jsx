@@ -1,24 +1,21 @@
-//import React from "react";
-import cc from "../components/Assets/aaa.webp";
-import vv from "../components/Assets/learn.webp";
-import Navbar from "./Navbar";
+import React from "react";
+import Navbar from "../Navbar";
 import { FiArrowRight } from "react-icons/fi";
-
-const categories = [
-  { name: "Web Development", image: "/path-to-web-dev-image.png" },
-  { name: "Data Science", image: "/path-to-data-science-image.png" },
-  { name: "Machine Learning", image: "/path-to-ml-image.png" },
-  { name: "Cybersecurity", image: "/path-to-cybersecurity-image.png" },
-  // Add more categories as needed
-];
+import './Home.css';
+import About from "../About";
+import Contact from "../Contact";
+import Testimonial from "../Testimonial";
+import Categories from "../Categories/Categories";
+import Work from "../Work";
+import Footer from "../Footer";
 
 const Home = () => {
   return (
     <div className="home-container">
-     
+      <Navbar />
       <div className="home-banner-container">
         <div className="home-bannerImage-container">
-         
+          {/* Add your banner image here */}
         </div>
         <div className="home-text-section">
           <h1 className="primary-heading">
@@ -32,11 +29,15 @@ const Home = () => {
           </button>
         </div>
         <div className="home-image-section">
-         
+          {/* Add your image here */}
         </div>
       </div>
-
-      
+      <About />
+      <Work />
+      <Categories />
+      <Testimonial />
+      <Contact />
+      <Footer />
     </div>
   );
 };

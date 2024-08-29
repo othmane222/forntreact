@@ -145,3 +145,29 @@ font-size: 19px;
     background-color: white; /* Ensure it stands out */
     z-index: 1000; /* Ensure it appears above other components */
   }
+  .inputs {
+    margin-bottom: 20px;
+}
+
+.input {
+    margin-bottom: 15px;
+
+}
+
+.input input,
+.input select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    
+}
+
+.input input::placeholder {
+    color: #aaa;
+}
+select{
+    background: #acabab;
+    color:#ffffff;
+}

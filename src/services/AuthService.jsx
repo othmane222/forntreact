@@ -1,35 +1,18 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/auth/'; // Adjust the URL to match your Spring Boot backend
-
-const signup = (name, email, password) => {
-    return axios.post(API_URL + 'signup', {
-        name,
-        email,
-        password
-    });
-};
+const API_URL = 'http://localhost:8081/api/users/';
 
 const login = (email, password) => {
-    return axios.post(API_URL + 'login', {
-        email,
-        password
-    }).then(response => {
-        if (response.data.token) {
-            localStorage.setItem('user', JSON.stringify(response.data));
-        }
-        return response.data;
-    });
+    return axios.post(API_URL + 'login', new URLSearchParams({ email, password }));
 };
 
-const logout = () => {
-    localStorage.removeItem('user');
+const signup = (username, email, password, role) => {
+    return axios.post(API_URL + 'signup', new URLSearchParams({ username, email, password, role }));
 };
 
 const AuthService = {
-    signup,
     login,
-    logout
+    signup,
 };
 
 export default AuthService;
