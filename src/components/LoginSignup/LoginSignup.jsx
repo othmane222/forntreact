@@ -10,7 +10,7 @@ const LoginSignup = () => {
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("STUDENT");
     const [responseMessage, setResponseMessage] = useState("");
-    const navigate = useNavigate(); // Ensure this is initialized
+    const navigate = useNavigate();
 
     const handleLogin = () => {
         if (email && password) {
@@ -39,6 +39,10 @@ const LoginSignup = () => {
         } else {
             setResponseMessage("Please fill in all fields.");
         }
+    };
+
+    const handleResetPasswordClick = () => {
+        navigate('/reset-password');
     };
 
     return (
@@ -87,7 +91,9 @@ const LoginSignup = () => {
                 </div>
             </div>
             {action === "Login" && 
-                <div className="forgot-password">Lost password? <span>Click here!</span></div>
+                <div className="forgot-password">
+                    Lost password? <span onClick={handleResetPasswordClick} style={{ cursor: 'pointer', color: '#007BFF' }}>Click here!</span>
+                </div>
             }
             <div className="submit-container">
                 <div 

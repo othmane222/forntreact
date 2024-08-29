@@ -2,6 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './components/Home/Home';
 import LoginSignup from './components/LoginSignup/LoginSignup';
+import ResetPassword from './components/Resetpassword/ResetPassword';
+
 // Other imports...
 
 const App = () => {
@@ -9,6 +11,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<LoginSignup />} />
       <Route path="/home" element={<HomePage />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       {/* Other routes... */}
     </Routes>
   );

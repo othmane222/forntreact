@@ -17,7 +17,7 @@ import CallToAction from "../CallToAction";
 const Home = () => {
   return (
     <div>
-      <Navbar />
+     <Navbar/>
       <MainSection />
       <Features />
         <Stats />
