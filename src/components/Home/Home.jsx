@@ -1,43 +1,33 @@
-import React from "react";
+//import React from "react";
+//import BannerBackground from "../components/Assets/home-banner-background.png";
+//import BannerImage from "../components/Assets/home-banner-image.png";
 import Navbar from "../Navbar";
 import { FiArrowRight } from "react-icons/fi";
-import './Home.css';
+import MainSection from "../MainSection";
+import Work from "../Work";
+import Testimonial from "../Testimonial";
+import Footer from "../Footer";
 import About from "../About";
 import Contact from "../Contact";
-import Testimonial from "../Testimonial";
-import Categories from "../Categories/Categories";
-import Work from "../Work";
-import Footer from "../Footer";
+import Pricing from "../Pricing";
+import Features from "../Features";
+import Stats from "../Stats";
+import CallToAction from "../CallToAction";
 
 const Home = () => {
   return (
-    <div className="home-container">
+    <div>
       <Navbar />
-      <div className="home-banner-container">
-        <div className="home-bannerImage-container">
-          {/* Add your banner image here */}
-        </div>
-        <div className="home-text-section">
-          <h1 className="primary-heading">
-            Your Favourite Courses Platform
-          </h1>
-          <p className="primary-text">
-            Test for the quality of the page. Test for the quality.
-          </p>
-          <button className="secondary-button">
-            Order Now <FiArrowRight />{" "}
-          </button>
-        </div>
-        <div className="home-image-section">
-          {/* Add your image here */}
-        </div>
-      </div>
-      <About />
-      <Work />
-      <Categories />
-      <Testimonial />
-      <Contact />
-      <Footer />
+      <MainSection />
+      <Features />
+        <Stats />
+        <Testimonial />
+        <CallToAction />
+        <About />
+        <Work />
+        <Pricing />
+        <Contact />
+        <Footer />
     </div>
   );
 };
