@@ -1,12 +1,13 @@
 import Navbar from "./Navbar";
 import hero from "../hero.png";
+import {Container} from "@mui/material";
 
 const MainSection = () => {
     return (
-        <div className={"bg-gradient-to-b from-forth-start to-forth-end"}>
-        <div className="container py-8 px-4 flex flex-col md:flex-row md:justify-around mx-auto md:mx-16">
-                <div className="w-full sm:w-10/12 md:w-3/5 mx-auto">
-                    <h1 className="my-4 text-5xl font-bold leading-tight">
+        <div className={"bg-secondary-3"}>
+        <div className={"max-w-7xl  flex flex-col sm:flex-row justify-center align-middle space-x-3 mx-auto px-4 sm:px-20"}>
+                <div className="w-full sm:w-10/12 md:w-3/5 mx-auto text-white">
+                    <h1 className="my-4 text-5xl font-bold leading-tight ">
                         Code crafty. your educational platform for software engineering excellence. Join thousands of ambitious learner and crack your dream job!
                     </h1>
                     <p className="leading-normal text-2xl mb-8">
