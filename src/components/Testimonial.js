@@ -3,11 +3,11 @@ import React from "react";
 import { AiFillStar } from "react-icons/ai";
 import {Container} from "@mui/material";
 
-import av1 from "../images/avatars/avatar.webp";
-import av2 from "../images/avatars/avatar-1.webp";
-import av3 from "../images/avatars/avatar-2.webp";
-import av4 from "../images/avatars/avatar-3.webp";
-import av5 from "../images/avatars/avatar-4.webp";
+import av1 from "../Assets/avatars/avatar.webp";
+import av2 from "../Assets/avatars/avatar-1.webp";
+import av3 from "../Assets/avatars/avatar-2.webp";
+import av4 from "../Assets/avatars/avatar-3.webp";
+import av5 from "../Assets/avatars/avatar-4.webp";
 
 const Testimonial = () => {
   return (

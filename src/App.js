@@ -1,27 +1,20 @@
-//import logo from './logo.svg';
-import LoginSignup from "./pages/LoginSignup";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './components/Home/Home';
+import LoginSignup from './components/LoginSignup/LoginSignup';
+import ResetPassword from './components/Resetpassword/ResetPassword';
 import Home from "./pages/Home";
-import About from "./components/About";
-import Work from "./components/Work";
-import Testimonial from "./components/Testimonial";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import { Routes, Route } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import ResetPassword from "./pages/ResetPassword";
 
-function App() {
-  const navigate = useNavigate();
+// Other imports...
 
+const App = () => {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/login" element={<LoginSignup />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/login" element={<LoginSignup />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+    </Routes>
   );
-}
+};
 
 export default App;
