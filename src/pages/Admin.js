@@ -4,13 +4,15 @@
 
 
 import NavBar from "../components/NavBar";
+import AdminDashBoard from "../components/AdminDashBoard";
 
-const DashBoard = () => {
+const Admin = () => {
     return (
         <div>
-        <NavBar />
+            <NavBar />
+            <AdminDashBoard />
         </div>
     );
 };
 
-export default DashBoard;
+export default Admin;

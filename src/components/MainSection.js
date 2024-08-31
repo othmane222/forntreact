@@ -1,4 +1,4 @@
-import Navbar from "./Navbar";
+import LandingNav from "./LandingNav";
 import hero from "../hero.png";
 import {Container} from "@mui/material";
 

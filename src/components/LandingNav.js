@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-const Navbar = () => {
+const LandingNav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -49,7 +49,7 @@ const Navbar = () => {
         </div>
         </div>
         <div className={`${isOpen ? "block" : "hidden"}`}>
-          <div className="flex flex-col justify-start  items-start h-full z-10 ">
+          <div className="flex flex-col justify-start  items-start h-full z-10 md:hidden ">
             <div className="flex flex-col items-center gap-8 ml-4 py-4">
               <a className="font-base font-semibold sm:text-base text-theme-neutral-200 hover:text-fuchsia-500 transition-all" href="https://www.ycombinator.com/launches/Gh3-codecrafters-advanced-code-challenges-for-senior-engineers">About</a>
               <a className="font-base font-semibold sm:text-base text-theme-neutral-200 hover:text-fuchsia-500 transition-all" href="/perks">Perks</a>
@@ -62,4 +62,4 @@ const Navbar = () => {
       );
 };
 
-export default Navbar;
+export default LandingNav;

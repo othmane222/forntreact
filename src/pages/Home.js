@@ -1,7 +1,7 @@
 //import React from "react";
 //import BannerBackground from "../components/Assets/home-banner-background.png";
 //import BannerImage from "../components/Assets/home-banner-image.png";
-import Navbar from "../components/Navbar";
+import LandingNav from "../components/LandingNav";
 import { FiArrowRight } from "react-icons/fi";
 import MainSection from "../components/MainSection";
 import Work from "../components/Work";
@@ -17,7 +17,7 @@ import CallToAction from "../components/CallToAction";
 const Home = () => {
   return (
     <div>
-      <Navbar />
+      <LandingNav />
       <MainSection />
       <Features />
         <Stats />
