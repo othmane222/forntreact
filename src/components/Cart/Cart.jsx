@@ -1,5 +1,6 @@
 import React from 'react';
 import './Cart.css'; // Import a CSS file for styling, if needed
+import LandingNav from '../LandingNav';
 
 const Cart = ({ cartItems, onClose }) => {
   const handleRemoveItem = (itemId) => {
@@ -10,6 +11,7 @@ const Cart = ({ cartItems, onClose }) => {
 
   return (
     <div className="cart-container">
+      <LandingNav/>
       <div className="cart-header">
         <h2>Your Cart</h2>
         //cart code

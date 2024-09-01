@@ -8,6 +8,8 @@ import DashBoard from "./pages/DashBoard";
 import PrivateRoute from "./router/PrivateRoute";
 import AuthProvider from "./hooks/AuthProvider";
 import Admin from "./pages/Admin";
+import Categories from './components/Categories/Categories';
+import Cart from './components/Cart/Cart';
 
 // Other imports...
 
@@ -15,10 +17,12 @@ const App = () => {
   return (
       <AuthProvider>
     <Routes>
-      <Route path="/login" element={<LoginSignup />} />
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<LoginSignup />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/admin" element={<Admin />} />
+      <Route path='/categories' element={<Categories/>} />
+      <Route path='/cart' element={<Cart/>} />
 
         <Route element={<PrivateRoute />}>
         <Route path="/board" element={<DashBoard />} />

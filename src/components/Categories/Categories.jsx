@@ -1,6 +1,7 @@
 // components/Categories/Categories.js
 import React, { useState } from "react";
 import './Categories.css'; // Ensure this path is correct
+import LandingNav from "../LandingNav";
 // Ensure this CSS file exists for styling
 
 const categories = [
@@ -16,6 +17,13 @@ const categories = [
   { name: "DevOps", image: "/path-to-devops-image.png" },
   { name: "DevOps", image: "/path-to-devops-image.png" },
   { name: "DevOps", image: "/path-to-devops-image.png" },
+  { name: "DevOps", image: "/path-to-devops-image.png" },
+  { name: "DevOps", image: "/path-to-devops-image.png" },
+  { name: "DevOps", image: "/path-to-devops-image.png" },
+  { name: "DevOps", image: "/path-to-devops-image.png" },
+  { name: "DevOps", image: "/path-to-devops-image.png" },
+  { name: "DevOps", image: "/path-to-devops-image.png" },
+  { name: "DevOps", image: "/path-to-devops-image.png" },
   // Add more categories as needed
 ];
 
@@ -23,7 +31,7 @@ const Categories = ({ onClose }) => {
   const [showAll, setShowAll] = useState(false);
 
   // Number of categories to show initially
-  const initialVisibleCount = 6;
+  const initialVisibleCount = 12;
 
   const handleShowMore = () => {
     setShowAll(true);
@@ -37,8 +45,11 @@ const Categories = ({ onClose }) => {
   const remainingCount = categories.length - initialVisibleCount;
 
   return (
+    
     <div className="categories-wrapper">
+      <LandingNav/>
       <div className="categories-header">
+        
 
         <h1 className="primary-heading" >Explore Categories</h1>
         

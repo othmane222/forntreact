@@ -3,6 +3,7 @@ import { Snackbar, Alert } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios'; // Import axios for making HTTP requests
+import '../Resetpassword/Resetpassword.css'
 
 const ResetPassword = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -40,10 +41,10 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="container">
-      <div className="header">
-        <div className="text">Reset Password</div>
-        <div className="underline"></div>
+    <div className="reset-container">
+      <div className="reset-header">
+        <div className="reset-text">Reset Password</div>
+        <div className="reset-underline"></div>
       </div>
 
       <Formik
@@ -52,21 +53,21 @@ const ResetPassword = () => {
         onSubmit={onSubmit}
       >
         {({ errors, touched, isSubmitting }) => (
-          <Form className="inputs">
-            <div className="input">
+          <Form className="reset-inputs">
+            <div className="reset-input">
               <Field
                 as="input"
                 name="email"
                 placeholder="Enter your email"
-                className={`form-control ${touched.email && errors.email ? 'is-invalid' : ''}`}
+                className={`reset-form-control ${touched.email && errors.email ? 'is-invalid' : ''}`}
               />
               {touched.email && errors.email && (
-                <div className="invalid-feedback">{errors.email}</div>
+                <div className="reset-invalid-feedback">{errors.email}</div>
               )}
             </div>
 
-            <div className="submit-container">
-              <button type="submit" className="submit" disabled={isSubmitting}>
+            <div className="reset-submit-container">
+              <button type="submit" className="reset-submit" disabled={isSubmitting}>
                 Submit
               </button>
             </div>
