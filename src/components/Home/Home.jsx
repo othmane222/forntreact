@@ -1,33 +1,39 @@
-//import React from "react";
-//import BannerBackground from "../components/Assets/home-banner-background.png";
-//import BannerImage from "../components/Assets/home-banner-image.png";
+// src/components/Home.jsx
+import React from "react";
+import { useNavigate } from 'react-router-dom';
 import LandingNav from "../LandingNav";
-import { FiArrowRight } from "react-icons/fi";
 import MainSection from "../MainSection";
-import Work from "../Work";
-import Testimonial from "../Testimonial";
-import Footer from "../Footer";
-import About from "../About";
-import Contact from "../Contact";
-import Pricing from "../Pricing";
 import Features from "../Features";
 import Stats from "../Stats";
+import Testimonial from "../Testimonial";
 import CallToAction from "../CallToAction";
+import About from "../About";
+import Work from "../Work";
+import Pricing from "../Pricing";
+import Contact from "../Contact";
+import Footer from "../Footer";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleAddCourse = () => {
+    navigate('/add-course'); // Route to the Add Course form
+  };
+
   return (
     <div>
-     <LandingNav/>
+      <LandingNav />
       <MainSection />
       <Features />
-        <Stats />
-        <Testimonial />
-        <CallToAction />
-        <About />
-        <Work />
-        <Pricing />
-        <Contact />
-        <Footer />
+      <Stats />
+      <Testimonial />
+      <CallToAction />
+      <About />
+      <Work />
+      <Pricing />
+      <Contact />
+      <Footer />
+      
     </div>
   );
 };

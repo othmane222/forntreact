@@ -1,8 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const LandingNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -12,11 +14,15 @@ const LandingNav = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
   }
 
+  const handleAddCourse = () => {
+    navigate('/add-course'); // Navigate to the Add Course form
+  };
+
   return (
-    <header className={"bg-secondary-3 text-white"}>
-      <div className={"container max-w-screen-xl px-4 md:px-6 mx-auto flex justify-between py-4"}>
+    <header className="bg-secondary-3 text-white">
+      <div className="container max-w-screen-xl px-4 md:px-6 mx-auto flex justify-between py-4">
         <div className="flex items-center gap-x-10 z-20">
-          <div id="logo" className={"text-3xl bg-gradient-to-r from-amber-400 to-red-600 bg-clip-text text-transparent"}>
+          <div id="logo" className="text-3xl bg-gradient-to-r from-amber-400 to-red-600 bg-clip-text text-transparent">
             CRAFTY
           </div>
           <div className="hidden md:block">
@@ -27,6 +33,12 @@ const LandingNav = () => {
               <a className="font-base font-semibold sm:text-base text-theme-neutral-200 hover:text-fuchsia-500 transition-all" href="/expense">Expense</a>
               <a className="font-base font-semibold sm:text-base text-theme-neutral-200 hover:text-fuchsia-500 transition-all" href="/categories">Categories</a>
               <a className="font-base font-semibold sm:text-base text-theme-neutral-200 hover:text-fuchsia-500 transition-all" href="/Cart">Cart</a>
+              <button
+                onClick={handleAddCourse}
+                className="font-base font-semibold sm:text-base text-theme-neutral-200 hover:text-fuchsia-500 transition-all"
+              >
+                Add Course
+              </button>
             </div>
           </div>
         </div>
@@ -35,7 +47,6 @@ const LandingNav = () => {
             onClick={toggleUserMenu}
             className="w-10 h-10 bg-theme-neutral-800 hover:bg-theme-neutral-700 rounded-full flex items-center justify-center"
           >
-            {/* Inline SVG for User Icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

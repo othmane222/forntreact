@@ -1,5 +1,5 @@
 import React from 'react';
-import {Routes, Route, Router} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import HomePage from './components/Home/Home';
 import LoginSignup from './components/LoginSignup/LoginSignup';
 import ResetPassword from './components/Resetpassword/ResetPassword';
@@ -10,6 +10,8 @@ import AuthProvider from "./hooks/AuthProvider";
 import Admin from "./pages/Admin";
 import Categories from './components/Categories/Categories';
 import Cart from './components/Cart/Cart';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import AddCourse from './components/AddCourse/AddCourse';
 
 // Other imports...
 
@@ -23,6 +25,7 @@ const App = () => {
       <Route path="/admin" element={<Admin />} />
       <Route path='/categories' element={<Categories/>} />
       <Route path='/cart' element={<Cart/>} />
+      <Route path="/add-course" element={<AddCourse />} />
 
         <Route element={<PrivateRoute />}>
         <Route path="/board" element={<DashBoard />} />
