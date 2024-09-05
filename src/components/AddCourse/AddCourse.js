@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const AddCourse = () => {
-  // Define state variables
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -12,18 +11,22 @@ const AddCourse = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     // Create FormData object
     const formData = new FormData();
-    formData.append('course', JSON.stringify({
+    
+    // Prepare course data to match backend expectations
+    const courseData = {
       title,
       description,
       price,
-      category_id: categoryId,
-      teacher_id: teacherId
-    }));
+      category: { id: categoryId }, // Adjust this if your backend expects a different structure
+      teacher: { id: teacherId }    // Adjust this if your backend expects a different structure
+    };
+    
+    formData.append('course', JSON.stringify(courseData));
     formData.append('pdfFile', pdfFile);
-
+  
     try {
       const response = await axios.post('http://localhost:8081/api/courses', formData, {
         headers: {
@@ -35,6 +38,8 @@ const AddCourse = () => {
       console.error('There was an error creating the course!', error);
     }
   };
+  
+  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -86,8 +91,6 @@ const AddCourse = () => {
         PDF File:
         <input
           type="file"
-          ame="pdfFile"
-  accept=".pdf"
           onChange={(e) => setPdfFile(e.target.files[0])}
         />
       </label>
