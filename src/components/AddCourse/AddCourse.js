@@ -12,11 +12,13 @@ const AddCourse = () => {
   const [categories, setCategories] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
-  const [videoUploadFormVisible, setVideoUploadFormVisible] = useState(false); // controls video form visibility
+  const [videoUploadFormVisible, setVideoUploadFormVisible] = useState(false);
+  const [assignmentFormVisible, setAssignmentFormVisible] = useState(false);
   const [courseId, setCourseId] = useState(null);
 
-  // New state for multiple videos
+  // New state for multiple videos and assignments
   const [videoFiles, setVideoFiles] = useState([{ file: null, title: '' }]);
+  const [assignments, setAssignments] = useState([{ title: '', description: '' }]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -41,6 +43,7 @@ const AddCourse = () => {
     fetchTeachers();
   }, []);
 
+  // Course submission
   const handleCourseSubmit = async (event) => {
     event.preventDefault();
 
@@ -64,23 +67,15 @@ const AddCourse = () => {
       });
       console.log('Course created:', response.data);
       setSuccessMessage('Course created successfully!');
-      setCourseId(response.data.id); // Capture the course ID
-      setVideoUploadFormVisible(true); // Show the video upload form
+      setCourseId(response.data.id);  // Capture the course ID here
+      setVideoUploadFormVisible(true);
+      setAssignmentFormVisible(true);
     } catch (error) {
       console.error('There was an error creating the course!', error);
     }
   };
 
-  const handleVideoChange = (index, field, value) => {
-    const newVideoFiles = [...videoFiles];
-    newVideoFiles[index][field] = value;
-    setVideoFiles(newVideoFiles);
-  };
-
-  const addVideoField = () => {
-    setVideoFiles([...videoFiles, { file: null, title: '' }]);
-  };
-
+  // Video submission
   const handleVideoSubmit = async (event) => {
     event.preventDefault();
 
@@ -89,7 +84,6 @@ const AddCourse = () => {
       return;
     }
 
-    // Loop through all video files and titles and upload them one by one
     for (const video of videoFiles) {
       const { file, title } = video;
       if (!file || !title) {
@@ -110,18 +104,64 @@ const AddCourse = () => {
         console.log('Video added successfully', response.data);
         setSuccessMessage('All videos added successfully!');
       } catch (error) {
-        if (error.response) {
-          console.error('Error Response:', error.response.data);
-        } else if (error.request) {
-          console.error('No response received:', error.request);
-        } else {
-          console.error('Error setting up request:', error.message);
-        }
+        console.error('Error adding video:', error);
+      }
+    }
+    setVideoFiles([{ file: null, title: '' }]);
+  };
+
+  // Assignment submission
+  const handleAssignmentSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!courseId) {
+      console.error('No course ID available');
+      return;
+    }
+
+    for (const assignment of assignments) {
+      const { title, description } = assignment;
+      if (!title || !description) {
+        console.error('Assignment title or description is missing');
+        return;
+      }
+
+      const assignmentData = {
+        title,
+        description,
+        course: { id: courseId },  // Pass the courseId here
+      };
+
+      try {
+        const response = await axios.post('http://localhost:8081/api/assignments', assignmentData);
+        console.log('Assignment added successfully', response.data);
+        setSuccessMessage('Assignments added successfully!');
+      } catch (error) {
+        console.error('Error adding assignment:', error);
       }
     }
 
-    // Reset after uploading all videos
-    setVideoFiles([{ file: null, title: '' }]);
+    setAssignments([{ title: '', description: '' }]);
+  };
+
+  const handleVideoChange = (index, field, value) => {
+    const newVideoFiles = [...videoFiles];
+    newVideoFiles[index][field] = value;
+    setVideoFiles(newVideoFiles);
+  };
+
+  const addVideoField = () => {
+    setVideoFiles([...videoFiles, { file: null, title: '' }]);
+  };
+
+  const handleAssignmentChange = (index, field, value) => {
+    const newAssignments = [...assignments];
+    newAssignments[index][field] = value;
+    setAssignments(newAssignments);
+  };
+
+  const addAssignmentField = () => {
+    setAssignments([...assignments, { title: '', description: '' }]);
   };
 
   return (
@@ -130,7 +170,7 @@ const AddCourse = () => {
       <div className="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
         <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Add a New Course</h2>
 
-        {/* Ensure course creation form is always shown */}
+        {/* Course creation form */}
         {!videoUploadFormVisible && (
           <form onSubmit={handleCourseSubmit} className="space-y-6">
             <div className="flex flex-col">
@@ -231,32 +271,75 @@ const AddCourse = () => {
           </div>
         )}
 
+        {/* Video upload form */}
         {videoUploadFormVisible && (
           <div className="mt-10">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Add Videos to Course</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Upload Videos</h2>
 
-            <form onSubmit={handleVideoSubmit} className="space-y-6">
+            <form onSubmit={handleVideoSubmit}>
               {videoFiles.map((video, index) => (
-                <div key={index} className="flex flex-col space-y-4">
-                  <div className="flex flex-col">
-                    <label className="text-gray-700 mb-2" htmlFor={`videoTitle-${index}`}>Video Title</label>
+                <div key={index} className="mb-4">
+                  <input
+                    type="file"
+                    onChange={(e) => handleVideoChange(index, 'file', e.target.files[0])}
+                    className="mb-2"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter video title"
+                    value={video.title}
+                    onChange={(e) => handleVideoChange(index, 'title', e.target.value)}
+                    className="border border-gray-300 rounded-md p-2 w-full"
+                  />
+                </div>
+              ))}
+
+              <button
+                type="button"
+                onClick={addVideoField}
+                className="bg-gray-200 text-gray-700 py-1 px-4 rounded-md mr-4"
+              >
+                Add Another Video
+              </button>
+
+              <button
+                type="submit"
+                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+              >
+                Upload Videos
+              </button>
+            </form>
+          </div>
+        )}
+
+        {/* Assignment submission form */}
+        {assignmentFormVisible && (
+          <div className="mt-10">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Create Assignments</h2>
+
+            <form onSubmit={handleAssignmentSubmit}>
+              {assignments.map((assignment, index) => (
+                <div key={index} className="mb-6">
+                  <div className="flex flex-col mb-4">
+                    <label className="text-gray-700 mb-2" htmlFor={`assignmentTitle-${index}`}>Assignment Title</label>
                     <input
                       type="text"
-                      id={`videoTitle-${index}`}
-                      value={video.title}
-                      onChange={(e) => handleVideoChange(index, 'title', e.target.value)}
+                      id={`assignmentTitle-${index}`}
+                      value={assignment.title}
+                      onChange={(e) => handleAssignmentChange(index, 'title', e.target.value)}
                       className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Enter video title"
+                      placeholder="Enter assignment title"
                     />
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="text-gray-700 mb-2" htmlFor={`videoFile-${index}`}>Video File</label>
-                    <input
-                      type="file"
-                      id={`videoFile-${index}`}
-                      onChange={(e) => handleVideoChange(index, 'file', e.target.files[0])}
+                    <label className="text-gray-700 mb-2" htmlFor={`assignmentDescription-${index}`}>Assignment Description</label>
+                    <textarea
+                      id={`assignmentDescription-${index}`}
+                      value={assignment.description}
+                      onChange={(e) => handleAssignmentChange(index, 'description', e.target.value)}
                       className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter assignment description"
                     />
                   </div>
                 </div>
@@ -264,17 +347,17 @@ const AddCourse = () => {
 
               <button
                 type="button"
-                onClick={addVideoField}
-                className="w-full bg-gray-500 text-white py-2 rounded-md hover:bg-gray-600 transition duration-300"
+                onClick={addAssignmentField}
+                className="bg-gray-200 text-gray-700 py-1 px-4 rounded-md mr-4"
               >
-                Add Another Video
+                Add Another Assignment
               </button>
 
               <button
                 type="submit"
-                className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
+                className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300 mt-4"
               >
-                Add Videos
+                Create Assignments
               </button>
             </form>
           </div>
