@@ -14,11 +14,13 @@ const AddCourse = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [videoUploadFormVisible, setVideoUploadFormVisible] = useState(false);
   const [assignmentFormVisible, setAssignmentFormVisible] = useState(false);
+  const [faqFormVisible, setFaqFormVisible] = useState(false);
   const [courseId, setCourseId] = useState(null);
 
-  // New state for multiple videos and assignments
+  // New state for multiple videos, assignments, and FAQs
   const [videoFiles, setVideoFiles] = useState([{ file: null, title: '' }]);
   const [assignments, setAssignments] = useState([{ title: '', description: '' }]);
+  const [faqs, setFaqs] = useState([{ question: '', answer: '' }]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -70,6 +72,7 @@ const AddCourse = () => {
       setCourseId(response.data.id);  // Capture the course ID here
       setVideoUploadFormVisible(true);
       setAssignmentFormVisible(true);
+      setFaqFormVisible(true);  // Show the FAQ form after course creation
     } catch (error) {
       console.error('There was an error creating the course!', error);
     }
@@ -144,6 +147,42 @@ const AddCourse = () => {
     setAssignments([{ title: '', description: '' }]);
   };
 
+  // FAQ submission
+  const handleFaqSubmit = async (event) => {
+    event.preventDefault();
+  
+    if (!courseId || !teacherId) {  // Ensure both courseId and userId are available
+      console.error('No course ID or user ID available');
+      return;
+    }
+  
+    for (const faq of faqs) {
+      const { question, answer } = faq;
+      if (!question || !answer) {
+        console.error('FAQ question or answer is missing');
+        return;
+      }
+  
+      const faqData = {
+        question,
+        answer,
+        course: { id: courseId },  // Pass the courseId here
+        user: { id: teacherId },      // Include userId here
+      };
+  
+      try {
+        const response = await axios.post('http://localhost:8081/api/faqs', faqData);
+        console.log('FAQ added successfully', response.data);
+        setSuccessMessage('FAQs added successfully!');
+      } catch (error) {
+        console.error('Error adding FAQ:', error);
+      }
+    }
+  
+    setFaqs([{ question: '', answer: '' }]);
+  };
+  
+
   const handleVideoChange = (index, field, value) => {
     const newVideoFiles = [...videoFiles];
     newVideoFiles[index][field] = value;
@@ -162,6 +201,16 @@ const AddCourse = () => {
 
   const addAssignmentField = () => {
     setAssignments([...assignments, { title: '', description: '' }]);
+  };
+
+  const handleFaqChange = (index, field, value) => {
+    const newFaqs = [...faqs];
+    newFaqs[index][field] = value;
+    setFaqs(newFaqs);
+  };
+
+  const addFaqField = () => {
+    setFaqs([...faqs, { question: '', answer: '' }]);
   };
 
   return (
@@ -358,6 +407,57 @@ const AddCourse = () => {
                 className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300 mt-4"
               >
                 Create Assignments
+              </button>
+            </form>
+          </div>
+        )}
+
+        {/* FAQ submission form */}
+        {faqFormVisible && (
+          <div className="mt-10">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Create FAQs</h2>
+
+            <form onSubmit={handleFaqSubmit}>
+              {faqs.map((faq, index) => (
+                <div key={index} className="mb-6">
+                  <div className="flex flex-col mb-4">
+                    <label className="text-gray-700 mb-2" htmlFor={`faqQuestion-${index}`}>Question</label>
+                    <input
+                      type="text"
+                      id={`faqQuestion-${index}`}
+                      value={faq.question}
+                      onChange={(e) => handleFaqChange(index, 'question', e.target.value)}
+                      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter FAQ question"
+                    />
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label className="text-gray-700 mb-2" htmlFor={`faqAnswer-${index}`}>Answer</label>
+                    <textarea
+                      id={`faqAnswer-${index}`}
+                      value={faq.answer}
+                      onChange={(e) => handleFaqChange(index, 'answer', e.target.value)}
+                      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter FAQ answer"
+                    />
+                  </div>
+                </div>
+              ))}
+
+              <button
+                type="button"
+                onClick={addFaqField}
+                className="bg-gray-200 text-gray-700 py-1 px-4 rounded-md mr-4"
+              >
+                Add Another FAQ
+              </button>
+
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300 mt-4"
+              >
+                Create FAQs
               </button>
             </form>
           </div>
