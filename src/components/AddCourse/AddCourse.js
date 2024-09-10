@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LandingNav from '../LandingNav';
+import Footer from '../Footer';
 
 const AddCourse = () => {
   const [title, setTitle] = useState('');
@@ -15,12 +16,14 @@ const AddCourse = () => {
   const [videoUploadFormVisible, setVideoUploadFormVisible] = useState(false);
   const [assignmentFormVisible, setAssignmentFormVisible] = useState(false);
   const [faqFormVisible, setFaqFormVisible] = useState(false);
+  const [qcmFormVisible, setQcmFormVisible] = useState(false);
   const [courseId, setCourseId] = useState(null);
 
   // New state for multiple videos, assignments, and FAQs
   const [videoFiles, setVideoFiles] = useState([{ file: null, title: '' }]);
   const [assignments, setAssignments] = useState([{ title: '', description: '' }]);
   const [faqs, setFaqs] = useState([{ question: '', answer: '' }]);
+  const [qcms, setQcms] = useState([{ question: '', correctAnswer: '', possibleAnswers: [''] }]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -73,6 +76,7 @@ const AddCourse = () => {
       setVideoUploadFormVisible(true);
       setAssignmentFormVisible(true);
       setFaqFormVisible(true);  // Show the FAQ form after course creation
+      setQcmFormVisible(true);
     } catch (error) {
       console.error('There was an error creating the course!', error);
     }
@@ -181,7 +185,42 @@ const AddCourse = () => {
   
     setFaqs([{ question: '', answer: '' }]);
   };
-  
+  // QCM submission
+  const handleQcmSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!courseId) {
+        console.error('No course ID available');
+        return;
+    }
+
+    for (const qcm of qcms) {
+        const { question, correctAnswer } = qcm;
+
+        if (!question || !correctAnswer) {
+            console.error('QCM question or correct answer is missing');
+            return;
+        }
+
+        const qcmData = {
+            question,
+            correctAnswer,
+            course: { id: courseId },  // Pass the courseId here
+        };
+
+        try {
+            const response = await axios.post('http://localhost:8081/api/qcm', qcmData, {
+                headers: { 'Content-Type': 'application/json' },
+            });
+            console.log('QCM added successfully', response.data);
+            setSuccessMessage('QCMs added successfully!');
+        } catch (error) {
+            console.error('Error adding QCM:', error.response ? error.response.data : error.message);
+        }
+    }
+
+    setQcms([{ question: '', correctAnswer: '' }]);
+};
 
   const handleVideoChange = (index, field, value) => {
     const newVideoFiles = [...videoFiles];
@@ -211,6 +250,25 @@ const AddCourse = () => {
 
   const addFaqField = () => {
     setFaqs([...faqs, { question: '', answer: '' }]);
+  };
+  const handleQcmChange = (index, field, subIndex, value) => {
+    const newQcms = [...qcms];
+    if (field === 'possibleAnswers') {
+      newQcms[index][field][subIndex] = value;
+    } else {
+      newQcms[index][field] = value;
+    }
+    setQcms(newQcms);
+  };
+
+  const addQcmField = () => {
+    setQcms([...qcms, { question: '', correctAnswer: '', possibleAnswers: [''] }]);
+  };
+
+  const addPossibleAnswerField = (index) => {
+    const newQcms = [...qcms];
+    newQcms[index].possibleAnswers.push('');
+    setQcms(newQcms);
   };
 
   return (
@@ -462,7 +520,57 @@ const AddCourse = () => {
             </form>
           </div>
         )}
+        {/* QCM form */}
+        {qcmFormVisible && (
+    <form onSubmit={handleQcmSubmit}>
+        <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Add QCMs</h3>
+        {qcms.map((qcm, index) => (
+            <div key={index} className="mb-6">
+                <div className="flex flex-col mb-4">
+                    <label className="text-gray-700 mb-2">Question</label>
+                    <input
+                        type="text"
+                        value={qcm.question}
+                        onChange={(e) => handleQcmChange(index, 'question', null, e.target.value)}
+                        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter QCM question"
+                        required
+                    />
+                </div>
+
+                <div className="flex flex-col mb-4">
+                    <label className="text-gray-700 mb-2">Correct Answer</label>
+                    <input
+                        type="text"
+                        value={qcm.correctAnswer}
+                        onChange={(e) => handleQcmChange(index, 'correctAnswer', null, e.target.value)}
+                        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter correct answer"
+                        required
+                    />
+                </div>
+            </div>
+        ))}
+
+        <button
+            type="button"
+            onClick={addQcmField}
+            className="bg-gray-200 text-gray-700 py-1 px-4 rounded-md mr-4"
+        >
+            Add Another QCM
+        </button>
+
+        <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300 mt-4"
+        >
+            Submit QCMs
+        </button>
+    </form>
+)}
+
       </div>
+      <Footer/>
     </div>
   );
 };
